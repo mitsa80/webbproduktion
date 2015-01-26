@@ -5,6 +5,9 @@
  * AJAX functions
  *
  */
+ 
+ 
+ 
  function getpartial(partialName){
 		if(partialName=="header"){
 			$.ajax({
@@ -121,4 +124,19 @@ function getMenuLinks(menu_name) {
       console.log("getMenuLinks error: ", data.responseText);
     }
   });
+}
+
+
+	$.ajax({
+		url: "php/get_address.php",
+		type:"get",
+		dataType: "json",
+		success: info_footer,
+		error: function(data) {
+		  console.log("nooooooooooo: ", data.responseText);
+		}
+  });
+
+function info_footer(data){
+console.log(data);
 }

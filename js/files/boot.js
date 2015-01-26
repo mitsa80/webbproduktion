@@ -16,7 +16,8 @@ function bootUp() {
    */
    
   //navbar navbarSearchForm submitHandler
-  $(".navbarSearchForm").submit(function() {
+  $('body').on('submit','.navbarSearchForm',function(){
+  //$(".navbarSearchForm").submit(function() {
     //get search input field value
     var search_param = $(this).find('input[type="text"]').val();
     //and get pages with matching titles
@@ -38,7 +39,8 @@ function bootUp() {
    */
 
   //adminForm pageUrlGroup clickHandler
-  $('#admin-form .pageUrlGroup input[type=checkbox]').click(function() {
+  $("body").on("click","#admin-form .pageUrlGroup input[type=checkbox]",function(){
+  //$('#admin-form .pageUrlGroup input[type=checkbox]').click(function() {
     //first enable/disable the page_url input field
     $("#page_url").attr("disabled", !$(this).is(":checked"));
 
@@ -51,7 +53,8 @@ function bootUp() {
 
 
   //adminForm page_title -> page_url keyUp handler
-  $("#page_title").keyup(function() {
+  $("body").on('keyup','#page_title',function(){
+  //$("#page_title").keyup(function() {
     //if #adminForm .pageUrlGroup input[type=checkbox] is !:checked
     if (!$('#admin-form .pageUrlGroup input[type=checkbox]').is(":checked")) {
       //generage machine name on keyup using generateMachineName() 
@@ -63,14 +66,16 @@ function bootUp() {
 
   //adminForm page_url blur handler
   //from jQuery documentation: "The blur event is sent to an element when it loses focus"
-  $("#page_url").blur(function() {
+  $("body").on('blur','#page_url',function(){
+  //$("#page_url").blur(function() {
     //whenever a user "is done" with the page_url input field
     $(this).val(generateMachineName($(this).val()));
   });
 
 
   //adminForm add menu checkbox clickhandler to show/hide add menu fields
-  $('.addToMenu input[type="checkbox"]').click(function() {
+  $("body").on('click','.addToMenu input[type="checkbox"]',function() {
+  //$('.addToMenu input[type="checkbox"]').click(function() {
     if ($(this).is(":checked")) {
       $("#admin-form .menuLinkFields").fadeIn(500);
     } else {
@@ -84,7 +89,8 @@ function bootUp() {
 
 
   //adminForm form submitHandler
-  $("#admin-form form").submit(function() {
+  $("body").on('submit','#admin-form form',function() {
+  //$("#admin-form form").submit(function() {
     //prepare adminFormData to be sent with AJAX
     var adminFormData = {
       ":title" : $(this).find("#page_title").val(),

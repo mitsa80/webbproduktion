@@ -88,18 +88,16 @@ class ContentQueries extends PDOHelper {
     
     return $this->query($sql, $menu_name);
   }
+  
+  
+	//Footer info
+	public function getAddress() {
+		$sql = "SELECT * FROM footer_info ";
+		return $this->query($sql);
+	  }
+	
+  
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
