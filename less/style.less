@@ -1,4 +1,6 @@
 
+@panelHeaderColor:#87d700;
+
 
 @media all and (max-width: 1190px) and (min-width: 980px) {
   .headerBanner {
@@ -66,4 +68,25 @@ main{
 	border:10px solid blue;
 	
 }
+
+.mySidebar{
+		
+	width:20%;
+	text-align:center;
+	float:right;
+	margin-top:1%;
+	.panel-heading{
+		background-color:lighten(@panelHeaderColor, 25%);
+		
+	}
+	.linksHov a{
+		&:hover {
+				background-color: #9999ff;
+			}
+			
+	}
+	
+
+}
+
 

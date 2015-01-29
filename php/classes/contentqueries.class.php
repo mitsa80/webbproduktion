@@ -13,12 +13,14 @@ class ContentQueries extends PDOHelper {
    */
 
   public function saveNewPage($page_data) {
+  
     //adding user_id before insert
     $page_data[":user_id"] = $this->user_info["user_id"];
 
     //extract and remove page path to prevent crash on insert page
     $page_path = $page_data[":path"];
     unset($page_data[":path"]);
+	
     //extract and remove page menu data to prevent crash on insert page
     $menu_data = $page_data["menuData"];
     unset($page_data["menuData"]);
@@ -60,14 +62,14 @@ class ContentQueries extends PDOHelper {
 
 
   public function getAllPages() {
-    $sql = "SELECT pages.pid, pages.title, pages.body, pages.created, CONCAT(users.fname, ' ', users.lname) as author FROM pages, users";
+    $sql = "SELECT  pages.title, pages.body, pages.created, CONCAT(users.fname, ' ', users.lname) as author FROM pages, users";
     return $this->query($sql);
   }
 
 
   public function searchForPages($search_param) {
     $search_param = array(":search_param" => "%".$search_param."%");
-    $sql = "SELECT pages.pid, pages.title, pages.body, pages.created, CONCAT(users.fname, ' ', users.lname) as author FROM pages, users WHERE pages.title LIKE :search_param";
+    $sql = "SELECT  pages.title, pages.body, pages.created, CONCAT(users.fname, ' ', users.lname) as author FROM pages, users WHERE pages.title LIKE :search_param";
     return $this->query($sql, $search_param);
   }
 

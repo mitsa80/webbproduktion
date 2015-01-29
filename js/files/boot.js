@@ -13,14 +13,17 @@ function bootUp() {
   
   //when click search box text ,it goes to content list page and get all page befor seach something
   $('body').on('click','.searchForm .searchInput',function(){
+  
 	$("#content-list").show();
 	getSearchPages();
+	$(this).val(" ");
   });
 
   /**
    * Search   */
    
   $('body').on('submit','.searchForm',function(){
+  
     var searchText = $(this).find('input[type="text"]').val();
     // get pages with matching titles
     getSearchPages(searchText);
@@ -41,8 +44,6 @@ function bootUp() {
 
   //adminForm pageUrlGroup clickHandler
   $("body").on("click","#admin-form .pageUrlGroup input[type=checkbox]",function(){
-  //$('#admin-form .pageUrlGroup input[type=checkbox]').click(function() {
-    //first enable/disable the page_url input field
     $("#page_url").attr("disabled", !$(this).is(":checked"));
 
     //then if the checkbox is !:checked
@@ -75,6 +76,7 @@ function bootUp() {
 
 
   //adminForm add menu checkbox clickhandler to show/hide add menu fields
+  
   $("body").on('click','.addToMenu input[type="checkbox"]',function() {
   //$('.addToMenu input[type="checkbox"]').click(function() {
     if ($(this).is(":checked")) {
@@ -82,10 +84,6 @@ function bootUp() {
     } else {
       $("#admin-form .menuLinkFields").fadeOut(500);
     }
-
-    //whenever the user clicks add to menu, 
-    //make the menu title field required
-    $(".addToMenu #menu_title").attr("required", $(this).is(":checked"));
   });
 
   
@@ -99,6 +97,7 @@ function bootUp() {
     }
 	
  });
+ 
 /* 
  $("body").on('change','.addPicture input[type="file"]',function(){
 	//alert("fffffff");
@@ -122,14 +121,14 @@ function bootUp() {
     if ($('.addToMenu input[type="checkbox"]').is(":checked")) {
       //get selected menu parent data
       adminFormData.menuData = {};
-      adminFormData.menuData["parent"] = $('.addToMenu select').find(":selected").data("menuItem");
+      adminFormData.menuData["parent"] = $( "#menuDropdown option:selected" ).val();
       //get menu link title
       adminFormData.menuData["title"] = $('.addToMenu #menu_title').val();
       //get menu link order
-      adminFormData.menuData["weight"] = $('.addToMenu #menu_weight').val();
     }
 	
 	//if the user has asked to add page to Pictureeeeee
+	/**
 	if ($('.addPicture input[type="checkbox"]').is(":checked")) {
 	
 	//uppload picture
@@ -144,18 +143,17 @@ function bootUp() {
       //get menu link order
       adminFormData.picData["path"] = "imgs/ " +$('.addPicture #pic_title').val()+".jpg";
     }
-	
+	**/
 	
     console.log("adminFormData: ", adminFormData);
 
     //send adminFormData with AJAX to DB
     insertPage(adminFormData);
-
-    //empty the form once we're done with the information in it
-    this.reset(); //.reset() is a JS function, NOT a jQuery function... :D
-	$("#admin-form .picLinkFields").hide();
-	$("#admin-form .menuLinkFields").hide();
-    //return false to prevent page reload on form submit
+	
+	$("admin-form").hide();
+	$("content-list").show();
+	
+	this.reset();
     return false;
   });
 }

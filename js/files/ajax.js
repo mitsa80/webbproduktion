@@ -53,8 +53,7 @@ function insertPage(adminFormData) {
     type: "post",
     dataType: "json",
     data: {
-      //this request must have data to get through the 
-      //if-statement in save_content.php
+	
       "page_data" : adminFormData
     },
     success: function(data) {
@@ -74,6 +73,7 @@ function insertPage(adminFormData) {
  */
 
 //function to getMenuLinks.
+/*
 function getMenuNames() {
   $.ajax({
     url: "php/get_menu_content.php",
@@ -105,6 +105,7 @@ function getMenuLinks(menu_name) {
     }
   });
 }
+*/
 
 //save picture
 function savePicture(){

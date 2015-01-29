@@ -25,7 +25,7 @@ function switchToSection(sectionId) {
   } else if (sectionId == "admin-form") {
     $("#admin-form .menuLinkFields").hide();
 	$("#admin-form .picLinkFields").hide();
-    getMenuLinks("menu-main-menu");
+    //getMenuLinks("menu-main-menu");
   }
 
   //find any links in body pointing to the sectionId,

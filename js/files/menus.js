@@ -16,10 +16,10 @@ function listMenuLinks(data) {
   var select_html = $('<select class="form-control"/>');
 
   //add a top option with mlid null to our select right away
-  var topOption = $('<option value="">Top</option>');
+  //var topOption = $('<option value="">Top</option>');
   //assume al links belong to the same menu
-  topOption.data("menuItem", {mlid: null, menu: "menu-main-menu"});
-  select_html.append(topOption);
+ // topOption.data("menuItem", {mlid: null, menu: "menu-main-menu"});
+  //select_html.append(topOption);
 
   //then recurse through the menuTree and add all menu links to select
   select_html = buildSelect(select_html, menuTree, 0);

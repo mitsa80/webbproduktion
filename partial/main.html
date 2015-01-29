@@ -8,26 +8,27 @@
             </div>
             <div class="panel-body">
               <ul class="nav nav-pills nav-stacked">
-                <li><a href="content-list">Content List</a></li>
-                <li><a href="admin-form">Admin form</a></li>
+				<div class="list-group linksHov">
+					<li><a href="content-list" class="list-group-item glyphicon glyphicon-hand-right">Content List</a></li>
+					<li><a href="admin-form" class="list-group-item glyphicon glyphicon-hand-right">Admin form</a></li>
+				</div>
               </ul>
             </div>
           </section>
         </section>
 
-        <!-- our "content list" -->
-        <section id="content-list" class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+        <!--  "content list" -->
+        <section id="content-list" class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
           <!-- a bootstrap panel with heading and a table -->
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title">All Pages</h3>
+              <h3 class=" panel-title pagesTitle ">   Pages</h3>
             </div>
             <!-- listing of content using a table -->
             <!-- .table is a bootstrap class -->
-            <table class="table">
-              <tr class="pageTableHeads">
+            <table class="table table-bordered">
+              <tr class="pageTableHeads ">
                 <!-- traditional table heads -->
-                <th>pid:</th>
                 <th>Title:</th>
                 <th>Author:</th>
                 <th>Created:</th>
@@ -36,7 +37,7 @@
           </div>
         </section>
 
-        <!-- our "admin form" -->
+        <!-- "admin form" -->
         <section id="admin-form" class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
           <!-- using the .form-horizontal -->
           <form class="form-horizontal" enctype="multipart/form-data" action="" method="post" >
@@ -76,18 +77,24 @@
               <div class="col-sm-10">
                 <div class="checkbox">
                   <label>
-                    <input type="checkbox" value=""> Add to menu
+                    <input type="checkbox" value="" required> Add to menu
                   </label>
                 </div>
               </div>
 
               <div class="col-sm-10 col-sm-offset-2 menuLinkFields">
                 <div class="input-group">
-                  <input type="text" class="form-control" id="menu_title" placeholder="Enter Menu Link Title...">
-                  <span class="input-group-addon" id="basic-addon2">Weight:</span>
-                  <input type="number" value="0" id="menu_weight" class="form-control">
+                  <input type="text" class="form-control" id="menu_title" placeholder="Enter Menu Link Title..." required>
+                  
                 </div>
-                <div class="menuSelect">
+                <div class="topMenuSelect">
+					<select id="menuDropdown" required>
+						<option value="" selected="selected">Select a TOP menu! </option>
+						<option value="0">Family</option>
+						<option value="1">Food</option>
+						<option value="2">Sport</option>
+						<option value="3">Health</option>
+					</select>
                 </div>
               </div>
             </div>
@@ -99,7 +106,7 @@
 				<div class="col-sm-10">
 					<div class="checkbox">
 					  <label>
-						<input type="checkbox" value=""> Add Picture
+						<input type="checkbox" value="" required> Add Picture
 					  </label>
 					</div>
 				  </div>

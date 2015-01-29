@@ -48,3 +48,15 @@ footer .footerBanner {
 main {
   border: 10px solid blue;
 }
+.mySidebar {
+  width: 20%;
+  text-align: center;
+  float: right;
+  margin-top: 1%;
+}
+.mySidebar .panel-heading {
+  background-color: #c1ff58;
+}
+.mySidebar .linksHov a:hover {
+  background-color: #9999ff;
+}
