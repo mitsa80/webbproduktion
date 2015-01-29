@@ -39,7 +39,7 @@
         <!-- our "admin form" -->
         <section id="admin-form" class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
           <!-- using the .form-horizontal -->
-          <form class="form-horizontal">
+          <form class="form-horizontal" enctype="multipart/form-data" action="" method="post" >
             <!-- put the header in a form-group with an offset to make it fit in with rest of content -->
             <div class="form-group">
               <div class="col-sm-8 col-sm-offset-2">
@@ -69,6 +69,8 @@
                 <textarea id="page_body" class="form-control" rows="10" placeholder="Enter page body content..." required></textarea>
               </div>
             </div>
+			
+			<!-- add menu-->
             <div class="form-group addToMenu">
               <label class="col-sm-2 control-label" for="page_body">Menu</label>
               <div class="col-sm-10">
@@ -89,11 +91,49 @@
                 </div>
               </div>
             </div>
+			<!-- add pictures-->
+			<div class="form-group addPicture">
+			
+				<label class="col-sm-2 control-label" for="page_body">Picture</label>
+				
+				<div class="col-sm-10">
+					<div class="checkbox">
+					  <label>
+						<input type="checkbox" value=""> Add Picture
+					  </label>
+					</div>
+				  </div>
+				  
+				  <div class="col-sm-10 col-sm-offset-2 picLinkFields">
+				  
+					<div class="input-group">
+						<label class="col-sm-2 control-label" for="pic_title">Picture Title</label>
+						<div class="col-sm-10">
+							<input type="text" id="pic_title" class="form-control" placeholder="Enter picture title..." required>
+						</div>
+					</div>
+					
+					<div class="input-group">
+						<label class="col-sm-4 control-label" for="pic_lo">Load Picture</label>
+						<div class="col-sm-10">
+							<input name="image" accept="image/jpeg" type="file">
+						</div>
+					</div>
+					
+					
+				  </div>
+				  
+			</div>
+			
+			
+			
+			
             <div class="form-group">
               <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-success btn-lg">Save Page</button>
               </div>
             </div>
+			
           </form>
         </section>
       </section>

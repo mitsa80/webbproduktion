@@ -9,35 +9,19 @@
  
  
  function getpartial(partialName){
-		if(partialName=="header"){
-			$.ajax({
-				url:"partial/header.html",
-				dataType:"html",
-				success:function(data){
-					$("header").prepend(data);
-				}
-			});
 		
-		}else if(partialName=="main"){
 			$.ajax({
-				url:"partial/main.html",
+				url:"partial/" + partialName + ".html",
 				dataType:"html",
 				success:function(data){
+					$(partialName).prepend(data);
+					if(partialName=="main"){
+						$("#content-list").hide();
+						$("#admin-form").hide();
+					}
 					
-					$("main").prepend(data);
-					$("#content-list").hide();
-					$("#admin-form").hide();
 				}
 			});
-		}else{
-			$.ajax({
-				url:"partial/footer.html",
-				dataType:"html",
-				success:function(data){
-					$("footer").prepend(data);
-				}
-			});
-		}	
 	}
 	
 
@@ -46,18 +30,14 @@
  */
 
 //function to getPages.
-function getPages(search_param) {
+function getSearchPages(search_param) {
   $.ajax({
     url: "php/get_content.php",
     type: "get",
     dataType: "json",
     data: {
-      //if search_param is NULL (undefined), the if-statement 
-      //in get_content.php will be false
       "search_param": search_param
     },
-    //on success, execute listAllPages function
-    //listAllPages has been moved to helpers.js
     success: listAllPages,
     error: function(data) {
       console.log("getPages error: ", data.responseText);
@@ -67,7 +47,7 @@ function getPages(search_param) {
 
 
 //function to insert a new page into the DB
-function insertNewPage(adminFormData) {
+function insertPage(adminFormData) {
   $.ajax({
     url: "php/save_content.php",
     type: "post",
@@ -78,12 +58,12 @@ function insertNewPage(adminFormData) {
       "page_data" : adminFormData
     },
     success: function(data) {
-      console.log("insertNewPage success: ", data);
+      console.log("insertPage success: ", data);
       //on success, goTo() the contentList url
       goTo("content-list");
     },
     error: function(data) {
-      console.log("insertNewPage error: ", data);
+      console.log("insertPage error: ", data);
     }
   });
 }
@@ -126,17 +106,21 @@ function getMenuLinks(menu_name) {
   });
 }
 
-
+//save picture
+function savePicture(){
 	$.ajax({
-		url: "php/get_address.php",
-		type:"get",
-		dataType: "json",
-		success: info_footer,
-		error: function(data) {
-		  console.log("nooooooooooo: ", data.responseText);
-		}
+    url: "php/pic.php",
+    type: "post",
+	dataType:"json",
+    success: function(data){
+		console.log("jhjh",data);
+	},
+    error: function(data) {
+      console.log("pictureError", data.responseText);
+    }
   });
 
-function info_footer(data){
-console.log(data);
+
+
 }
+	

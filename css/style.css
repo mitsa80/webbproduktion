@@ -40,6 +40,11 @@ footer {
   background-repeat: no-repeat;
   border-radius: 4px;
 }
+footer .footerBanner {
+  font-size: 18px;
+  font-style: italic;
+  margin-top: 1.5%;
+}
 main {
   border: 10px solid blue;
 }

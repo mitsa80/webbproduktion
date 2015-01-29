@@ -21,9 +21,10 @@ function switchToSection(sectionId) {
   
   //if needed get data using AJAX
   if (sectionId == "content-list") {
-    getPages();
+    getSearchPages();
   } else if (sectionId == "admin-form") {
     $("#admin-form .menuLinkFields").hide();
+	$("#admin-form .picLinkFields").hide();
     getMenuLinks("menu-main-menu");
   }
 

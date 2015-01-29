@@ -10,20 +10,21 @@ function bootUp() {
   //setup history push/pop-state
   pushPopListeners();
 
+  
+  //when click search box text ,it goes to content list page and get all page befor seach something
+  $('body').on('click','.searchForm .searchInput',function(){
+	$("#content-list").show();
+	getSearchPages();
+  });
 
   /**
-   * Search
-   */
+   * Search   */
    
-  //navbar navbarSearchForm submitHandler
-  $('body').on('submit','.navbarSearchForm',function(){
-  //$(".navbarSearchForm").submit(function() {
-    //get search input field value
-    var search_param = $(this).find('input[type="text"]').val();
-    //and get pages with matching titles
-    getPages(search_param);
-
-    //return false to prevent page reload on form submit
+  $('body').on('submit','.searchForm',function(){
+    var searchText = $(this).find('input[type="text"]').val();
+    // get pages with matching titles
+    getSearchPages(searchText);
+	
     return false;
   });
 
@@ -87,6 +88,24 @@ function bootUp() {
     $(".addToMenu #menu_title").attr("required", $(this).is(":checked"));
   });
 
+  
+  //adminForm add picture checkbox clickhandler to show/hide add picture fields
+  
+  $("body").on('click','.addPicture input[type="checkbox"]',function() {
+	if ($(this).is(":checked")) {
+      $("#admin-form .picLinkFields").fadeIn(500);
+    } else {
+      $("#admin-form .picLinkFields").fadeOut(500);
+    }
+	
+ });
+/* 
+ $("body").on('change','.addPicture input[type="file"]',function(){
+	//alert("fffffff");
+	// function is in the ajax.js
+	savePicture();
+ });
+ */ 
 
   //adminForm form submitHandler
   $("body").on('submit','#admin-form form',function() {
@@ -109,14 +128,33 @@ function bootUp() {
       //get menu link order
       adminFormData.menuData["weight"] = $('.addToMenu #menu_weight').val();
     }
+	
+	//if the user has asked to add page to Pictureeeeee
+	if ($('.addPicture input[type="checkbox"]').is(":checked")) {
+	
+	//uppload picture
+	 //var pd=savePicture();
+	 //console.log("function",pd);
+	 
+	 
+      //get selected menu parent data
+      adminFormData.picData = {};
+      //get menu link title
+      adminFormData.picData["title"] = $('.addPicture #pic_title').val();
+      //get menu link order
+      adminFormData.picData["path"] = "imgs/ " +$('.addPicture #pic_title').val()+".jpg";
+    }
+	
+	
     console.log("adminFormData: ", adminFormData);
 
     //send adminFormData with AJAX to DB
-    insertNewPage(adminFormData);
+    insertPage(adminFormData);
 
     //empty the form once we're done with the information in it
     this.reset(); //.reset() is a JS function, NOT a jQuery function... :D
-
+	$("#admin-form .picLinkFields").hide();
+	$("#admin-form .menuLinkFields").hide();
     //return false to prevent page reload on form submit
     return false;
   });
