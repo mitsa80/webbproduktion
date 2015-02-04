@@ -24,6 +24,10 @@ class ContentQueries extends PDOHelper {
     //extract and remove page menu data to prevent crash on insert page
     $menu_data = $page_data["menuData"];
     unset($page_data["menuData"]);
+	
+	//extract and remove page picture data to prevent crash on insert page
+    $pic_data = $page_data["picData"];
+    unset($page_data["picData"]);
 
     $sql = "INSERT INTO pages (title, body, user_id) VALUES (:title, :body, :user_id)";
     //since we are using prepared SQL statements, 
@@ -46,15 +50,24 @@ class ContentQueries extends PDOHelper {
 
     //if we are adding the page to a menu, do so
     if (isset($menu_data)) {
-      $sql4 = "INSERT INTO menu_links (title, path, menu, plid, weight) VALUES (:title, :path, :menu_name, :plid, :weight)";
+      $sql4 = "INSERT INTO menu_link (title, path, mm_id) VALUES (:title, :path, :mm_id )";
       $menu_data = array(
         ":title" => $menu_data["title"],
         ":path" => $page_path,
-        ":menu_name" => $menu_data["parent"]["menu"],
-        ":plid" => $menu_data["parent"]["mlid"] ? $menu_data["parent"]["mlid"] : null,
-        ":weight" => $menu_data["weight"],
+		":mm_id" => $menu_data["parent"]
       );
       $this->query($sql4, $menu_data);
+    }
+	
+	//adding picture to page
+    if (isset($pic_data)) {
+      $sql4 = "INSERT INTO images (title, path,user_id) VALUES (:title, :path,:user_id)";
+      $pic_data = array(
+        ":title" => $pic_data["title"],
+        ":path" => $pic_data["path"],
+		"user_id"=>$page_data[":user_id"]
+      );
+      $this->query($sql4, $pic_data);
     }
 
     return true;
@@ -62,7 +75,7 @@ class ContentQueries extends PDOHelper {
 
 
   public function getAllPages() {
-    $sql = "SELECT  pages.title, pages.body, pages.created, CONCAT(users.fname, ' ', users.lname) as author FROM pages, users";
+    $sql = "SELECT  pages.title, pages.body, pages.created, CONCAT(users.fname, ' ', users.lname) as author FROM pages, users order By `created`DESC";
     return $this->query($sql);
   }
 
@@ -77,7 +90,16 @@ class ContentQueries extends PDOHelper {
   /**
    * Menus
    */
+   
+   public function getMenu(){
+   $sql="SELECT menu_link.title, menu_link.path, main_menu.mm_name FROM menu_link INNER JOIN main_menu ON main_menu.mm_id=menu_link.mm_id";
+   return $this->query($sql);
+   }
 
+   
+   
+   
+   
   public function getMenuNames() {
     $sql = "SELECT * FROM menus";
     return $this->query($sql);

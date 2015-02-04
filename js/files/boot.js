@@ -11,13 +11,6 @@ function bootUp() {
   pushPopListeners();
 
   
-  //when click search box text ,it goes to content list page and get all page befor seach something
-  $('body').on('click','.searchForm .searchInput',function(){
-  
-	$("#content-list").show();
-	getSearchPages();
-	$(this).val(" ");
-  });
 
   /**
    * Search   */
@@ -26,7 +19,9 @@ function bootUp() {
   
     var searchText = $(this).find('input[type="text"]').val();
     // get pages with matching titles
+	$("#content-list").show();
     getSearchPages(searchText);
+	$(this).find(".searchInput").val("");
 	
     return false;
   });
@@ -119,31 +114,27 @@ function bootUp() {
 
     //if the user has asked to add page to menu
     if ($('.addToMenu input[type="checkbox"]').is(":checked")) {
-      //get selected menu parent data
+
       adminFormData.menuData = {};
+	  //get selected menu parent data
       adminFormData.menuData["parent"] = $( "#menuDropdown option:selected" ).val();
       //get menu link title
       adminFormData.menuData["title"] = $('.addToMenu #menu_title').val();
       //get menu link order
     }
 	
-	//if the user has asked to add page to Pictureeeeee
-	/**
-	if ($('.addPicture input[type="checkbox"]').is(":checked")) {
+	//if the user has asked to add page to Picture
 	
-	//uppload picture
-	 //var pd=savePicture();
-	 //console.log("function",pd);
-	 
-	 
+	if ($('.addPicture input[type="checkbox"]').is(":checked")) {
+
       //get selected menu parent data
       adminFormData.picData = {};
       //get menu link title
       adminFormData.picData["title"] = $('.addPicture #pic_title').val();
       //get menu link order
-      adminFormData.picData["path"] = "imgs/ " +$('.addPicture #pic_title').val()+".jpg";
+      adminFormData.picData["path"] = $('#pictureDropdown option:selected').val();
     }
-	**/
+	
 	
     console.log("adminFormData: ", adminFormData);
 
