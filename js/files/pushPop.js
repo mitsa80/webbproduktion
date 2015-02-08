@@ -13,6 +13,9 @@ function switchToSection(sectionId) {
 		sectionId = "home";
 	  }
 	  
+	  //console.log("sectionId: ", sectionId);
+	  
+	  
 	  //hide all sections in main .row except section.mySidebar
 	  $("main .row").children().not(".mySidebar").hide();
 	  //then show the requested section
@@ -26,7 +29,12 @@ function switchToSection(sectionId) {
 		$("#admin-form .picLinkFields").hide();
 		
 	  }
-
+		
+		$(nav).click(function(){
+		
+		
+		});
+		
 	  //find any links in body pointing to the sectionId,
 	  $("body").find('a[href="'+sectionId+'"]').each(function() {
 	  
