@@ -1,28 +1,28 @@
 
-
-
 /**
  * AJAX functions
  *
  */
- 
- 
- 
- function getpartial(partialName){
-		
-			$.ajax({
-				url:"partial/" + partialName + ".html",
-				dataType:"html",
-				success:function(data){
-					$(partialName).prepend(data);
-					if(partialName=="main"){
-						$("#content-list").hide();
-						$("#admin-form").hide();
-					}
+
+function getpartial(partialName){
+	$.ajax({
+		url:"partial/" + partialName + ".html",
+		dataType:"html",
+		success:function(data){
+		$(partialName).prepend(data);
+		if(partialName=="main"){
+			$("#content-list").hide();
+				$("#admin-form").hide();
+			}else if(partialName=="footer"){
+				renderFooter();
+			}else{
+				getMenuLinks();
+				
+			}
 					
-				}
-			});
-	}
+		}
+	});
+}
 	
 
 /**
@@ -121,7 +121,51 @@ function savePicture(){
     }
   });
 
+}
 
+//menus
+function getMenuLinks() {	 
+	$.ajax({
+		url:"php/get_menu.php",
+		dataType:"json",
+		success:makeMenu,
+		error:function(data) {
+		  console.log("getMenuLinks error: ", data.responseText);
+		}
+	 });
+ }
+ 
+ //get the page
+ function getPage(href){
+ console.log("HREF:",href)
+ 
+	$.ajax({
+    url: "php/getpage.php",
+    type: "post",
+    dataType: "json",
+    data: {
+      "href" : href
+    },
+    success: function(data) {
+      //goTo("content-list");
+	  console.log(data)
+    },
+    error: function(data) {
+      console.log("getPage error: ", data);
+    }
+  });
+ 
+ }
+	
+function renderFooter(){
+
+	$.ajax({
+			url: "php/get_address.php",
+			dataType: "json",
+			success: info_footer,
+			error: function(data) {
+			  console.log("footer_info: ", data.responseText);
+			}
+	  });
 
 }
-	

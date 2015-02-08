@@ -30,10 +30,6 @@ class ContentQueries extends PDOHelper {
     unset($page_data["picData"]);
 
     $sql = "INSERT INTO pages (title, body, user_id) VALUES (:title, :body, :user_id)";
-    //since we are using prepared SQL statements, 
-    //SQL and data are sent separately to the query method
-
-    //first insert into the pages table
     $this->query($sql, $page_data);
 
     //then find pid of new page by selecting the latest page 
@@ -45,7 +41,7 @@ class ContentQueries extends PDOHelper {
 
     //insert new page url alias
     $sql3 = "INSERT INTO url_alias (path, pid) VALUES (:path, :pid)";
-    $url_data = array(":path" => $page_path, ":pid" => $new_pid);
+    $url_data = array(":path" => $page_path.$new_pid, ":pid" => $new_pid);
     $this->query($sql3, $url_data);
 
     //if we are adding the page to a menu, do so
@@ -53,7 +49,7 @@ class ContentQueries extends PDOHelper {
       $sql4 = "INSERT INTO menu_link (title, path, mm_id) VALUES (:title, :path, :mm_id )";
       $menu_data = array(
         ":title" => $menu_data["title"],
-        ":path" => $page_path,
+        ":path" => $page_path.$new_pid,
 		":mm_id" => $menu_data["parent"]
       );
       $this->query($sql4, $menu_data);
@@ -99,7 +95,7 @@ class ContentQueries extends PDOHelper {
    
    
    
-   
+ /*  
   public function getMenuNames() {
     $sql = "SELECT * FROM menus";
     return $this->query($sql);
@@ -113,15 +109,27 @@ class ContentQueries extends PDOHelper {
     return $this->query($sql, $menu_name);
   }
   
+  */
   
-	//Footer info
-	public function getAddress() {
-		$sql = "SELECT * FROM footer_info ";
-		return $this->query($sql);
-	  }
+ //Get page by sectionId
+public function getpage($href) {
+	
+	//$sql = "SELECT pages.title,pages.body,pages.created,url_alias.path FROM url_alias INNER JOIN pages ON url_alias.pid=pages.pid WHERE url_alias.path=:$href";
+	$sql="SELECT pages.*, url_alias.path FROM pages, url_alias WHERE pages.pid = url_alias.pid AND url_alias.path = :href";
+	$href=array(":href"=>$href);
+	return $this->query($sql,$href);
+}	
+	
+//Footer info
+public function getAddress() {
+	$sql = "SELECT * FROM footer_info ";
+	return $this->query($sql);
+}
+
+
 	
   
-}
+}//end of class
 
 
 

@@ -23,3 +23,5 @@ function generateMachineName(urlText) {
 
   return urlText.toLowerCase();
 }
+
+//submit 1-samla data 2- skicka data

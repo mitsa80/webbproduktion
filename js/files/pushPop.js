@@ -8,34 +8,46 @@
 
 //function to show/hide sections
 function switchToSection(sectionId) {
-  //if no sectionId was recieved (or home was recieved),
-  //show the "front page"
-  if (!sectionId || sectionId == "home") {
-    sectionId = "content-list";
-  }
-
-  //hide all sections in main .row except section.mySidebar
-  $("main .row").children().not(".mySidebar").hide();
-  //then show the requested section
-  $('section#'+sectionId).fadeIn(500);
   
-  //if needed get data using AJAX
-  if (sectionId == "content-list") {
-    getSearchPages();
-  } else if (sectionId == "admin-form") {
-    $("#admin-form .menuLinkFields").hide();
-	$("#admin-form .picLinkFields").hide();
-    //getMenuLinks("menu-main-menu");
-  }
+	  if (!sectionId || sectionId == "home" ) {
+		sectionId = "home";
+	  }
+	  
+	  //hide all sections in main .row except section.mySidebar
+	  $("main .row").children().not(".mySidebar").hide();
+	  //then show the requested section
+	  $('section#'+sectionId).fadeIn(500);
+	  
+	  //if needed get data using AJAX
+	  if (sectionId == "content-list") {
+		getSearchPages();
+	  } else if (sectionId == "admin-form") {
+		$("#admin-form .menuLinkFields").hide();
+		$("#admin-form .picLinkFields").hide();
+		
+	  }
 
-  //find any links in body pointing to the sectionId,
-  $("body").find('a[href="'+sectionId+'"]').each(function() {
-    //and for each link found, add .active class 
-    //to the link parent (if it is an <li> tag),
-    $(this).parent("li").siblings().removeClass("active");
-    //and add it to my parent
-    $(this).parent("li").addClass("active");
-  });
+	  //find any links in body pointing to the sectionId,
+	  $("body").find('a[href="'+sectionId+'"]').each(function() {
+	  
+	  
+		console.log("sectionId: ", sectionId);
+		getPage(sectionId);
+		
+		var aHref = $(this).parents("li");
+		//console.log(aHref.html())
+		
+		
+		//console.log(aHref.length) show level
+		var myActiveParent = aHref.eq(aHref.length-1);
+		//console.log( myActiveParent.html());
+		
+		myActiveParent.siblings().removeClass("active");
+		myActiveParent.siblings().find("li").removeClass("active");
+		
+		//myActiveParent.addClass("active");
+		aHref.addClass("active");
+	  });
 }
 
 
@@ -54,7 +66,7 @@ function goTo(href) {
 function pushPopListeners() {
   // When we click a link
   $(document).on("click","a",function(event){
-
+	//console.log("href", $(this).attr("href"));
     //if the user clicks a real http:// || https:// link,
     if ($(this).attr("href").indexOf("://") >=0) {
       //assume they are leaving the site
@@ -79,12 +91,10 @@ function pushPopListeners() {
 
   // Run this function on popstate and initial load
   function onPopAndStart(){
-    //alert("The popstate event is triggered!");
-
-    // Read our url and extract the page name
-    // the characters after the last slash
+  
     var l = location.href;
-    //might need to change this
+	//console.log(l);
+    //http://localhost/.../hash
     var pageName = l.substring(l.lastIndexOf("/")+1);
 
     // if no pageName set pageName to false

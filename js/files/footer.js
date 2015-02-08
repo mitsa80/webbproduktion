@@ -1,14 +1,4 @@
 
-$.ajax({
-		url: "php/get_address.php",
-		dataType: "json",
-		success: info_footer,
-		error: function(data) {
-		  console.log("footer_info: ", data.responseText);
-		}
-  });
-
-
 function info_footer(data){
 	
 	var rowAdd=$("<section class='footerBanner row'>/");

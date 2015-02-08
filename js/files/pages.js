@@ -26,5 +26,7 @@ function listAllPages(data) {
     newTableRow.append('<td>'+data[i].created+"</td>");
 
     $("#content-list table ").append(newTableRow);
+	
   }
+  
 }

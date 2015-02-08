@@ -9,8 +9,7 @@
 function bootUp() {
   //setup history push/pop-state
   pushPopListeners();
-
-  
+ 
 
   /**
    * Search   */
@@ -23,14 +22,10 @@ function bootUp() {
     getSearchPages(searchText);
 	$(this).find(".searchInput").val("");
 	
+	$("ul#mainMenu").find("li").removeClass("active");
+	
     return false;
   });
-
-
-  //sidebar nav clickhandler
-  //this functionality has been moved to the switchToSection() 
-  //function in pushPop.js 
-  // $(".mySidebar .nav a").click(function(event) {});
 
 
   /**
@@ -38,6 +33,7 @@ function bootUp() {
    */
 
   //adminForm pageUrlGroup clickHandler
+  /*
   $("body").on("click","#admin-form .pageUrlGroup input[type=checkbox]",function(){
     $("#page_url").attr("disabled", !$(this).is(":checked"));
 
@@ -69,7 +65,7 @@ function bootUp() {
     $(this).val(generateMachineName($(this).val()));
   });
 
-
+*/
   //adminForm add menu checkbox clickhandler to show/hide add menu fields
   
   $("body").on('click','.addToMenu input[type="checkbox"]',function() {
@@ -108,7 +104,7 @@ function bootUp() {
     var adminFormData = {
       ":title" : $(this).find("#page_title").val(),
       ":body" : $(this).find("#page_body").val(),
-      ":path" : $(this).find("#page_url").val()
+      ":path" : generateMachineName( $(this).find("#page_title").val() )
       //":user_id" : 1 //this has been moved to PHP
     };
 
@@ -141,10 +137,18 @@ function bootUp() {
     //send adminFormData with AJAX to DB
     insertPage(adminFormData);
 	
-	$("admin-form").hide();
-	$("content-list").show();
-	
+	//$("admin-form").hide();
+	//$("content-list").show();
+	 
 	this.reset();
     return false;
   });
+  
+  
+  
+  
+  
+  
+  
+  
 }
