@@ -30,10 +30,7 @@ function switchToSection(sectionId) {
 		
 	  }
 		
-		$(nav).click(function(){
 		
-		
-		});
 		
 	  //find any links in body pointing to the sectionId,
 	  $("body").find('a[href="'+sectionId+'"]').each(function() {
