@@ -14,15 +14,23 @@
   }
 }
 
+@fontChewy:'Chewy', cursive;
+@fontQ: 'Lato', sans-serif;;
+
 header{
+
+	font-family: @fontChewy;
 	
 	.headerBanner {
 		height:28vh;
+		
 		background-image: url("../imgs/gb_large.jpg");
 		background-size: cover;
 		background-position: 50% 40%;
 		background-repeat: no-repeat;
-		border-radius: 4px;
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
+		
 
 	}  
 	
@@ -34,44 +42,41 @@ header{
 	
 	
 	hgroup{
-	
+		
 		float:left;
 		padding-left:4%;
 		padding-top:2%;
 		h1{
-			font-size:6vmin;
+			font-size:250%;
 		}
 
 		h2{
-			font-size:4vmin;
+			font-size:200%;
 		}
 	}
-		
+	
+	nav {
+		li{
+			font-size:120%;
+			ul{
+				li{
+					font-size:120%;
+				}
+			}
+		}
+	}
 }
 
-footer{
-	  height:28vh;
-	  background-image: url("../imgs/gb_large.jpg");
-	  background-size: cover;
-	  background-position: 50% 40%;
-	  background-repeat: no-repeat;
-	  border-radius: 4px; 
-	  
-	  .footerBanner{
-		font-size:18px;
-		font-style:italic;
-		margin-top:1.5%;
-	  }
-}
+
 
 main{
 	border:10px solid blue;
-	
+	p,h3{
+		font-family:@fontQ;
+		}
 }
 
 .mySidebar{
-		
-	width:20%;
 	text-align:center;
 	float:right;
 	margin-top:1%;
@@ -89,4 +94,20 @@ main{
 
 }
 
+footer{
+	font-family: @fontChewy;
+	height:28vh;
+	background-image: url("../imgs/gb_large.jpg");
+	background-size: cover;
+	background-position: 50% 40%;
+	background-repeat: no-repeat;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	  
+	.footerBanner{
+		font-size:18px;
+		font-style:italic;
+		margin-top:1.5%;
+	}
+}
 

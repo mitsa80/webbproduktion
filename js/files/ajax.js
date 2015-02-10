@@ -5,17 +5,18 @@
  */
 
 function getpartial(partialName){
+
 	$.ajax({
 		url:"partial/" + partialName + ".html",
 		dataType:"html",
 		success:function(data){
 		$(partialName).prepend(data);
 		if(partialName=="main"){
-			$("#content-list").hide();
-				$("#admin-form").hide();
+			bootUp();
 			}else if(partialName=="footer"){
 				renderFooter();
-			}else{
+			}
+			else{
 				getMenuLinks();
 				
 			}
@@ -60,6 +61,7 @@ function insertPage(adminFormData) {
       console.log("insertPage success: ", data);
       //on success, goTo() the contentList url
       goTo("content-list");
+	  getMenuLinks();
     },
     error: function(data) {
       console.log("insertPage error: ", data);
@@ -67,45 +69,6 @@ function insertPage(adminFormData) {
   });
 }
 
-
-/**
- * Menus
- */
-
-//function to getMenuLinks.
-/*
-function getMenuNames() {
-  $.ajax({
-    url: "php/get_menu_content.php",
-    type: "get",
-    dataType: "json",
-    //on success, execute listMenuNames() function in helpers.js
-    success: listMenuNames,
-    error: function(data) {
-      console.log("getMenuLinks error: ", data.responseText);
-    }
-  });
-}
-
-
-//function to getMenuLinks.
-function getMenuLinks(menu_name) {
-  $.ajax({
-    url: "php/get_menu_content.php",
-    type: "get",
-    dataType: "json",
-    data: {
-      //menu_name must be provided
-      "menu_name": menu_name
-    },
-    //on success, execute listAllMenuLinks() function in helpers.js
-    success: listMenuLinks,
-    error: function(data) {
-      console.log("getMenuLinks error: ", data.responseText);
-    }
-  });
-}
-*/
 
 //save picture
 function savePicture(){
@@ -137,26 +100,28 @@ function getMenuLinks() {
  
  //get the page
  function getPage(href){
- console.log("HREF:",href)
  
-	$.ajax({
-    url: "php/getpage.php",
-    type: "post",
-    dataType: "json",
-    data: {
-      "href" : href
-    },
-    success: function(data) {
-      //goTo("content-list");
-	  console.log(data)
-    },
-    error: function(data) {
-      console.log("getPage error: ", data);
-    }
-  });
+	 console.log("HREF:",href)
+	 
+	 
+		$.ajax({
+		url: "php/get_page.php",
+		type: "post",
+		dataType: "json",
+		data: {
+		  "href" : href
+		},
+		success: getPageByHref,
+		error: function(data) {
+		  console.log("getPage error: ", data);
+		}
+	  });
+	  
+	 
  
  }
-	
+
+ //render footer
 function renderFooter(){
 
 	$.ajax({

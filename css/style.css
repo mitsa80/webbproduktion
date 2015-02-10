@@ -8,13 +8,17 @@
     background-image: url("imgs/gb_small.jpg");
   }
 }
+header {
+  font-family: 'Chewy', cursive;
+}
 header .headerBanner {
   height: 28vh;
   background-image: url("../imgs/gb_large.jpg");
   background-size: cover;
   background-position: 50% 40%;
   background-repeat: no-repeat;
-  border-radius: 4px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 header img.logo {
   float: left;
@@ -27,29 +31,25 @@ header hgroup {
   padding-top: 2%;
 }
 header hgroup h1 {
-  font-size: 6vmin;
+  font-size: 250%;
 }
 header hgroup h2 {
-  font-size: 4vmin;
+  font-size: 200%;
 }
-footer {
-  height: 28vh;
-  background-image: url("../imgs/gb_large.jpg");
-  background-size: cover;
-  background-position: 50% 40%;
-  background-repeat: no-repeat;
-  border-radius: 4px;
+header nav li {
+  font-size: 120%;
 }
-footer .footerBanner {
-  font-size: 18px;
-  font-style: italic;
-  margin-top: 1.5%;
+header nav li ul li {
+  font-size: 120%;
 }
 main {
   border: 10px solid blue;
 }
+main p,
+main h3 {
+  font-family: 'Lato', sans-serif;
+}
 .mySidebar {
-  width: 20%;
   text-align: center;
   float: right;
   margin-top: 1%;
@@ -59,4 +59,19 @@ main {
 }
 .mySidebar .linksHov a:hover {
   background-color: #9999ff;
+}
+footer {
+  font-family: 'Chewy', cursive;
+  height: 28vh;
+  background-image: url("../imgs/gb_large.jpg");
+  background-size: cover;
+  background-position: 50% 40%;
+  background-repeat: no-repeat;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+footer .footerBanner {
+  font-size: 18px;
+  font-style: italic;
+  margin-top: 1.5%;
 }

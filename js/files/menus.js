@@ -7,7 +7,8 @@
 
  function makeMenu(data){
 	
-	//$("ul#mainMenu").children().not(":first-child").remove();
+	$("ul#mainMenu > *").not('.home').remove();
+	
 	var fa=[],sp=[] ,fo=[] ,he=[];
 	
 	 $.each(data, function(index, date) {	 
@@ -27,6 +28,7 @@
 	renderMenu(sp, "sport");
 	renderMenu(fo, "food");
 	renderMenu(he, "health");
+
 	// make family menu 
 	}
 	
@@ -35,7 +37,7 @@
 		
 		if(x.length>0){
 				
-			var li=('<li role="presentation" class="dropdown" id="'+ y +'">' +
+			var li=$('<li role="presentation" class="dropdown" id="'+ y +'">' +
 			'<a class="dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-expanded="false">'+ y +' <span class="caret"></span></a></li>');
 			var li_x=$('<ul class="dropdown-menu '+ x +'" role="menu"></ul>');
 			var ml=$("ul#mainMenu").append(li);

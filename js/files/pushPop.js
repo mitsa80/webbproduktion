@@ -8,10 +8,14 @@
 
 //function to show/hide sections
 function switchToSection(sectionId) {
-  
-	  if (!sectionId || sectionId == "home" ) {
+
+	console.log("sectionId: ", sectionId);
+	
+	  if (!sectionId) {
 		sectionId = "home";
 	  }
+	  
+	  
 	  
 	  //console.log("sectionId: ", sectionId);
 	  
@@ -28,7 +32,10 @@ function switchToSection(sectionId) {
 		$("#admin-form .menuLinkFields").hide();
 		$("#admin-form .picLinkFields").hide();
 		
-	  }
+	  } else if(sectionId!="home"){
+			$("#pageByHref").show();
+			getPage(sectionId);
+		}
 		
 		
 		
@@ -37,12 +44,12 @@ function switchToSection(sectionId) {
 	  
 	  
 		console.log("sectionId: ", sectionId);
-		getPage(sectionId);
 		
+		
+		// create active class for menu and sub menue
 		var aHref = $(this).parents("li");
 		//console.log(aHref.html())
-		
-		
+		aHref.siblings().removeClass("active");
 		//console.log(aHref.length) show level
 		var myActiveParent = aHref.eq(aHref.length-1);
 		//console.log( myActiveParent.html());
@@ -71,18 +78,23 @@ function goTo(href) {
 function pushPopListeners() {
   // When we click a link
   $(document).on("click","a",function(event){
-	//console.log("href", $(this).attr("href"));
+  
+	var hr=$(this).attr("href");
     //if the user clicks a real http:// || https:// link,
-    if ($(this).attr("href").indexOf("://") >=0) {
+	//internal href="rahra-sdas"
+	//external href="http(s)://)"
+    if (hr.indexOf("://") >=0) {
       //assume they are leaving the site
       return;
     }
 
     //prevent "empty" urls from affecting browsing
-    if ($(this).attr("href") && $(this).attr("href") !== "#") {
-      goTo($(this).attr("href"));
+    if (hr && hr !== "#") {
+	
+      goTo(hr);
+	 
     }
-
+	
     event.preventDefault();
   });
 

@@ -10,9 +10,12 @@ function bootUp() {
   //setup history push/pop-state
   pushPopListeners();
  
-
+ 
   /**
    * Search   */
+   $("body").on("click",'.searchForm input[type="text"]',function(){
+		goTo("content-list");
+   });
    
   $('body').on('submit','.searchForm',function(){
   
@@ -32,40 +35,6 @@ function bootUp() {
    * Admin form 
    */
 
-  //adminForm pageUrlGroup clickHandler
-  /*
-  $("body").on("click","#admin-form .pageUrlGroup input[type=checkbox]",function(){
-    $("#page_url").attr("disabled", !$(this).is(":checked"));
-
-    //then if the checkbox is !:checked
-    if (!$(this).is(":checked")) {
-      //replace page_url with "default"
-      $('#page_url').val(generateMachineName($("#page_title").val()));
-    }
-  });
-
-
-  //adminForm page_title -> page_url keyUp handler
-  $("body").on('keyup','#page_title',function(){
-  //$("#page_title").keyup(function() {
-    //if #adminForm .pageUrlGroup input[type=checkbox] is !:checked
-    if (!$('#admin-form .pageUrlGroup input[type=checkbox]').is(":checked")) {
-      //generage machine name on keyup using generateMachineName() 
-      //function from helper.js
-      $('#page_url').val(generateMachineName($(this).val()));
-    }
-  });
-
-
-  //adminForm page_url blur handler
-  //from jQuery documentation: "The blur event is sent to an element when it loses focus"
-  $("body").on('blur','#page_url',function(){
-  //$("#page_url").blur(function() {
-    //whenever a user "is done" with the page_url input field
-    $(this).val(generateMachineName($(this).val()));
-  });
-
-*/
   //adminForm add menu checkbox clickhandler to show/hide add menu fields
   
   $("body").on('click','.addToMenu input[type="checkbox"]',function() {
