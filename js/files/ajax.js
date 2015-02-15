@@ -18,7 +18,6 @@ function getpartial(partialName){
 			}
 			else{
 				getMenuLinks();
-				
 			}
 					
 		}
@@ -32,6 +31,7 @@ function getpartial(partialName){
 
 //function to getPages.
 function getSearchPages(search_param) {
+
   $.ajax({
     url: "php/get_content.php",
     type: "get",
@@ -77,7 +77,7 @@ function savePicture(){
     type: "post",
 	dataType:"json",
     success: function(data){
-		console.log("jhjh",data);
+		console.log("jhjh");
 	},
     error: function(data) {
       console.log("pictureError", data.responseText);

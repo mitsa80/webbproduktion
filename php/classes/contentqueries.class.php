@@ -1,10 +1,7 @@
 <?php
 
-//inherits all public PDOHelper methods
 class ContentQueries extends PDOHelper {
-  //later when we have login in place, real user_info 
-  //will be stored in the property user_info.
-  //for now let's just fake it
+  //we have one user!
   protected $user_info = array("user_id" => 1);
 
 
@@ -44,7 +41,7 @@ class ContentQueries extends PDOHelper {
     $url_data = array(":path" => $page_path.$new_pid, ":pid" => $new_pid);
     $this->query($sql3, $url_data);
 
-    //if we are adding the page to a menu, do so
+    // adding the page to a menu
     if (isset($menu_data)) {
       $sql4 = "INSERT INTO menu_link (title, path, mm_id) VALUES (:title, :path, :mm_id )";
       $menu_data = array(
@@ -92,44 +89,24 @@ class ContentQueries extends PDOHelper {
    return $this->query($sql);
    }
 
-   
-   
-   
- /*  
-  public function getMenuNames() {
-    $sql = "SELECT * FROM menus";
-    return $this->query($sql);
-  }
-
-
-  public function getMenuLinks($menu_name) {
-    $menu_name = array(":menu_name" => $menu_name);
-    $sql = "SELECT * FROM menu_links WHERE menu = :menu_name";
-    
-    return $this->query($sql, $menu_name);
-  }
   
-  */
-  
- //Get page by sectionId
-public function getpage($href) {
+	//Get page by sectionId
+    public function getpage($href) {
 	
-	//$sql = "SELECT pages.title,pages.body,pages.created,url_alias.path FROM url_alias INNER JOIN pages ON url_alias.pid=pages.pid WHERE url_alias.path=:$href";
 	$sql="SELECT pages.*, url_alias.path FROM pages, url_alias WHERE pages.pid = url_alias.pid AND url_alias.path = :href";
 	$href=array(":href"=>$href);
 	return $this->query($sql,$href);
-}	
+	}	
 	
-//Footer info
-public function getAddress() {
-	$sql = "SELECT * FROM footer_info ";
-	return $this->query($sql);
+	//Footer info
+	public function getAddress() {
+		$sql = "SELECT * FROM footer_info ";
+		return $this->query($sql);
+	}
+
+
+	 
 }
-
-
-	
-  
-}//end of class
 
 
 

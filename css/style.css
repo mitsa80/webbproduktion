@@ -57,9 +57,6 @@ main h3 {
 .mySidebar .panel-heading {
   background-color: #c1ff58;
 }
-.mySidebar .linksHov a:hover {
-  background-color: #9999ff;
-}
 footer {
   font-family: 'Chewy', cursive;
   height: 28vh;

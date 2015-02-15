@@ -1,6 +1,4 @@
 
-
-
 /**
  * Sitewide helper functions
  *
@@ -8,7 +6,7 @@
 
 //function to generate a url alias from "normal" string
 function generateMachineName(urlText) {
-  //remove any empy spaces at beginning and/or end of string
+  //Remove the whitespace from the beginning and end of the string.
   urlText = urlText.trim();
 
   //replace all spaces with -
@@ -24,4 +22,3 @@ function generateMachineName(urlText) {
   return urlText.toLowerCase();
 }
 
-//submit 1-samla data 2- skicka data

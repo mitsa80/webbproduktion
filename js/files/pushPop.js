@@ -1,6 +1,4 @@
 
-
-
 /**
  * Navigation & history push/pop-state
  *
@@ -9,32 +7,36 @@
 //function to show/hide sections
 function switchToSection(sectionId) {
 
-	console.log("sectionId: ", sectionId);
-	
-	  if (!sectionId) {
+    //console.log("sectionId: ", sectionId);
+	  if (!sectionId ||sectionId=="index.html") {
 		sectionId = "home";
 	  }
 	  
-	  
-	  
-	  //console.log("sectionId: ", sectionId);
-	  
-	  
 	  //hide all sections in main .row except section.mySidebar
 	  $("main .row").children().not(".mySidebar").hide();
+	  $(".linksHov li ").css("background-color","");
+	  
 	  //then show the requested section
 	  $('section#'+sectionId).fadeIn(500);
 	  
 	  //if needed get data using AJAX
 	  if (sectionId == "content-list") {
-		getSearchPages();
+			$(".linksHov li a").eq(0).addClass("active");
+			$(".linksHov li a").eq(1).removeClass("active");
+			$("ul#mainMenu").find("li").removeClass("active");
+			getSearchPages();
 	  } else if (sectionId == "admin-form") {
-		$("#admin-form .menuLinkFields").hide();
-		$("#admin-form .picLinkFields").hide();
-		
+			$(".linksHov li a").eq(0).removeClass("active");
+			$(".linksHov li a").eq(1).addClass("active");
+			$("ul#mainMenu").find("li").removeClass("active");
+			$("#admin-form .menuLinkFields").hide();
+			$("#admin-form .picLinkFields").hide();
+			
 	  } else if(sectionId!="home"){
+			$(".linksHov li a").removeClass("active");
 			$("#pageByHref").show();
 			getPage(sectionId);
+			
 		}
 		
 		
@@ -48,7 +50,6 @@ function switchToSection(sectionId) {
 		
 		// create active class for menu and sub menue
 		var aHref = $(this).parents("li");
-		//console.log(aHref.html())
 		aHref.siblings().removeClass("active");
 		//console.log(aHref.length) show level
 		var myActiveParent = aHref.eq(aHref.length-1);
@@ -80,6 +81,7 @@ function pushPopListeners() {
   $(document).on("click","a",function(event){
   
 	var hr=$(this).attr("href");
+	console.log("hr",hr)
     //if the user clicks a real http:// || https:// link,
 	//internal href="rahra-sdas"
 	//external href="http(s)://)"
@@ -87,17 +89,12 @@ function pushPopListeners() {
       //assume they are leaving the site
       return;
     }
-
     //prevent "empty" urls from affecting browsing
     if (hr && hr !== "#") {
-	
-      goTo(hr);
-	 
+      goTo(hr); 
     }
-	
     event.preventDefault();
   });
-
 
   // Add a pop state listener
   // (listen to forward/backward buttons in the browser)
@@ -108,15 +105,11 @@ function pushPopListeners() {
 
   // Run this function on popstate and initial load
   function onPopAndStart(){
-  
     var l = location.href;
-	//console.log(l);
     //http://localhost/.../hash
     var pageName = l.substring(l.lastIndexOf("/")+1);
-
     // if no pageName set pageName to false
     pageName = pageName || false;
-    //and switchToSection
     switchToSection(pageName);
   }
 }

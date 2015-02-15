@@ -1,6 +1,3 @@
-
-
-
 /**
  * Pages functions
  *
