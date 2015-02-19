@@ -15,11 +15,7 @@ function getpartial(partialName){
 			bootUp();
 			}else if(partialName=="footer"){
 				renderFooter();
-			}
-			else{
-				getMenuLinks();
-			}
-					
+			}	
 		}
 	});
 }
@@ -49,6 +45,7 @@ function getSearchPages(search_param) {
 
 //function to insert a new page into the DB
 function insertPage(adminFormData) {
+
   $.ajax({
     url: "php/save_content.php",
     type: "post",
@@ -61,7 +58,6 @@ function insertPage(adminFormData) {
       console.log("insertPage success: ", data);
       //on success, goTo() the contentList url
       goTo("content-list");
-	  getMenuLinks();
     },
     error: function(data) {
       console.log("insertPage error: ", data);
@@ -70,28 +66,14 @@ function insertPage(adminFormData) {
 }
 
 
-//save picture
-function savePicture(){
-	$.ajax({
-    url: "php/pic.php",
-    type: "post",
-	dataType:"json",
-    success: function(data){
-		console.log("jhjh");
-	},
-    error: function(data) {
-      console.log("pictureError", data.responseText);
-    }
-  });
-
-}
-
 //menus
-function getMenuLinks() {	 
+function getMenuLinks(activePath) {	 
 	$.ajax({
 		url:"php/get_menu.php",
 		dataType:"json",
-		success:makeMenu,
+		success:function(data) {
+			makeMenu(data, activePath);
+		},
 		error:function(data) {
 		  console.log("getMenuLinks error: ", data.responseText);
 		}
@@ -100,10 +82,6 @@ function getMenuLinks() {
  
  //get the page
  function getPage(href){
- 
-	 console.log("HREF:",href)
-	 
-	 
 		$.ajax({
 		url: "php/get_page.php",
 		type: "post",
@@ -116,9 +94,6 @@ function getMenuLinks() {
 		  console.log("getPage error: ", data);
 		}
 	  });
-	  
-	 
- 
  }
 
  //render footer

@@ -10,10 +10,12 @@ class ContentQueries extends PDOHelper {
    */
 
   public function saveNewPage($page_data) {
-  
+	
+	
     //adding user_id before insert
     $page_data[":user_id"] = $this->user_info["user_id"];
 
+	
     //extract and remove page path to prevent crash on insert page
     $page_path = $page_data[":path"];
     unset($page_data[":path"]);
@@ -25,8 +27,32 @@ class ContentQueries extends PDOHelper {
 	//extract and remove page picture data to prevent crash on insert page
     $pic_data = $page_data["picData"];
     unset($page_data["picData"]);
+	
+	
+	//insert picture
+	$sql4 = "INSERT INTO images (title, path,user_id) VALUES (:title, :path,:user_id)";
+      $pic_data = array(
+        ":title" => $pic_data["title"],
+        ":path" => $pic_data["path"],
+		"user_id"=>$page_data[":user_id"]
+      );
+      $this->query($sql4, $pic_data);
+	  
+	//then find iid of new picture by selecting the latest picture 
+    //in the images table
+    $sql5 = "SELECT iid FROM images ORDER BY uploaded DESC LIMIT 1";
+    $iid = $this->query($sql5);
+    //extract pid from the array we get back
+    $new_iid = $iid[0]["iid"];
 
-    $sql = "INSERT INTO pages (title, body, user_id) VALUES (:title, :body, :user_id)";
+	
+	//add img_id to page data array
+	$page_data[":img_id"]=$new_iid;
+	
+	//var_dump($page_data);
+	
+	//insert page
+    $sql = "INSERT INTO pages (title, body, user_id, img_id) VALUES (:title, :body, :user_id, :img_id)";
     $this->query($sql, $page_data);
 
     //then find pid of new page by selecting the latest page 
@@ -35,6 +61,7 @@ class ContentQueries extends PDOHelper {
     $new_pid = $this->query($sql2);
     //extract pid from the array we get back
     $new_pid = $new_pid[0]["pid"];
+	
 
     //insert new page url alias
     $sql3 = "INSERT INTO url_alias (path, pid) VALUES (:path, :pid)";
@@ -52,17 +79,6 @@ class ContentQueries extends PDOHelper {
       $this->query($sql4, $menu_data);
     }
 	
-	//adding picture to page
-    if (isset($pic_data)) {
-      $sql4 = "INSERT INTO images (title, path,user_id) VALUES (:title, :path,:user_id)";
-      $pic_data = array(
-        ":title" => $pic_data["title"],
-        ":path" => $pic_data["path"],
-		"user_id"=>$page_data[":user_id"]
-      );
-      $this->query($sql4, $pic_data);
-    }
-
     return true;
   }
 
@@ -93,7 +109,7 @@ class ContentQueries extends PDOHelper {
 	//Get page by sectionId
     public function getpage($href) {
 	
-	$sql="SELECT pages.*, url_alias.path FROM pages, url_alias WHERE pages.pid = url_alias.pid AND url_alias.path = :href";
+	$sql="SELECT pages.*, url_alias.path ,images.title as alt,images.path FROM pages, url_alias,images WHERE pages.pid = url_alias.pid AND url_alias.path = :href AND images.iid=pages.img_id";
 	$href=array(":href"=>$href);
 	return $this->query($sql,$href);
 	}	

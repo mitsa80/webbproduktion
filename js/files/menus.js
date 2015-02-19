@@ -5,7 +5,7 @@
  */
  
 
- function makeMenu(data){
+ function makeMenu(data, activePath){
 	
 		
 	$("ul#mainMenu > *").not('.home').remove();
@@ -30,6 +30,9 @@
 	renderMenu(sp, "sport");
 	renderMenu(fo, "food");
 	renderMenu(he, "health");
+	
+	$(".active").removeClass("active");
+	$("a[href='"+activePath+"']").parents("li").addClass("active");
 
 }
 

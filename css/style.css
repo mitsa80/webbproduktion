@@ -43,11 +43,18 @@ header nav li ul li {
   font-size: 120%;
 }
 main {
+  padding-bottom: 20px;
   border: 10px solid blue;
 }
 main p,
 main h3 {
   font-family: 'Lato', sans-serif;
+}
+main .pageImage {
+  float: left;
+  width: 30%;
+  height: 30%;
+  margin-right: 10px;
 }
 .mySidebar {
   text-align: center;

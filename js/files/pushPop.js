@@ -6,7 +6,7 @@
 
 //function to show/hide sections
 function switchToSection(sectionId) {
-
+	getMenuLinks(sectionId);
     //console.log("sectionId: ", sectionId);
 	  if (!sectionId ||sectionId=="index.html") {
 		sectionId = "home";
@@ -21,46 +21,15 @@ function switchToSection(sectionId) {
 	  
 	  //if needed get data using AJAX
 	  if (sectionId == "content-list") {
-			$(".linksHov li a").eq(0).addClass("active");
-			$(".linksHov li a").eq(1).removeClass("active");
-			$("ul#mainMenu").find("li").removeClass("active");
 			getSearchPages();
 	  } else if (sectionId == "admin-form") {
-			$(".linksHov li a").eq(0).removeClass("active");
-			$(".linksHov li a").eq(1).addClass("active");
-			$("ul#mainMenu").find("li").removeClass("active");
 			$("#admin-form .menuLinkFields").hide();
-			$("#admin-form .picLinkFields").hide();
-			
+			$("#admin-form .picLinkFields").hide();		
 	  } else if(sectionId!="home"){
-			$(".linksHov li a").removeClass("active");
 			$("#pageByHref").show();
 			getPage(sectionId);
 			
 		}
-		
-		
-		
-	  //find any links in body pointing to the sectionId,
-	  $("body").find('a[href="'+sectionId+'"]').each(function() {
-	  
-	  
-		console.log("sectionId: ", sectionId);
-		
-		
-		// create active class for menu and sub menue
-		var aHref = $(this).parents("li");
-		aHref.siblings().removeClass("active");
-		//console.log(aHref.length) show level
-		var myActiveParent = aHref.eq(aHref.length-1);
-		//console.log( myActiveParent.html());
-		
-		myActiveParent.siblings().removeClass("active");
-		myActiveParent.siblings().find("li").removeClass("active");
-		
-		//myActiveParent.addClass("active");
-		aHref.addClass("active");
-	  });
 }
 
 

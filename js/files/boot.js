@@ -44,7 +44,7 @@ function bootUp() {
 
   
   //adminForm add picture checkbox clickhandler to show/hide add picture fields
-  /*
+  
   $("body").on('click','.addPicture input[type="checkbox"]',function() {
 	if ($(this).is(":checked")) {
       $("#admin-form .picLinkFields").fadeIn(500);
@@ -53,13 +53,8 @@ function bootUp() {
     }
 	
  });
- */
  
- $("body").on('click','.uploadPic input[type="file"]',function(){
-	// function is in the ajax.js
-	savePicture();
- });
- 
+
 
   //adminForm form submitHandler
   $("body").on('submit','#admin-form form',function() {
@@ -83,21 +78,14 @@ function bootUp() {
 	//if the user has asked to add page to Picture
 	adminFormData.picData = {};
 	
-	var pic=$('.uploadPic input[type="file"]').val();
 	
-	adminFormData.picData["pic_name"] = pic.substr(12,18);
-	console.log(adminFormData.picData["pic_name"])
-	/*
 	if ($('.addPicture input[type="checkbox"]').is(":checked")) {
 
-      //get selected menu parent data
       adminFormData.picData = {};
-      //get menu link title
       adminFormData.picData["title"] = $('.addPicture #pic_title').val();
-      //get menu link order
       adminFormData.picData["path"] = $('#pictureDropdown option:selected').val();
     }
-	*/
+	
 	
     console.log("adminFormData: ", adminFormData);
 

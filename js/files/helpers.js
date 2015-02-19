@@ -13,6 +13,17 @@ function generateMachineName(urlText) {
   while (urlText.indexOf(' ') >= 0) {
     urlText = urlText.replace(" ", "-");
   }
+  
+  
+  //replace all ) with -
+  while (urlText.indexOf(')') >= 0) {
+    urlText = urlText.replace(")", "-");
+  }
+  
+  //replace all ( with -
+  while (urlText.indexOf('(') >= 0) {
+    urlText = urlText.replace("(", "-");
+  }
 
   //replace all -- with -
   while (urlText.indexOf('--') >= 0) {
